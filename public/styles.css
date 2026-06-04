@@ -7,19 +7,31 @@
    green and purple". */
 
 :root {
-  --bg:           #0a0a0a;   /* page background */
-  --surface:      #161616;   /* AI bubble + input box */
-  --border:       #2a2a2a;   /* subtle dividers */
-  --text:         #ededed;   /* main text */
-  --text-muted:   #8a8a8a;   /* subtitles, hints */
-  --accent:       #3b82f6;   /* user bubble + send button */
-  --accent-hover: #2563eb;
+  --bg:           #08080b;   /* page background */
+  --surface:      #141418;   /* AI bubble + input box */
+  --border:       #26262b;   /* subtle dividers */
+  --text:         #f4f4f4;   /* main text */
+  --text-muted:   #a6a6aa;   /* subtitles, hints */
+  --accent:       #e22b2b;   /* user bubble + send button */
+  --accent-hover: #b71b1b;
   --user-bubble:  var(--accent);
-  --ai-bubble:    var(--surface);
+  --ai-bubble:    #19191f;
 
-  --radius:       12px;
+  --radius:       14px;
   --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --display-font: "Audiowide", sans-serif;
   --max-width:    760px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(circle at top, rgba(226, 43, 43, 0.12), transparent 20%),
+              linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+              var(--bg);
+  background-size: 100% 220px, 100% 64px, 64px 100%, auto;
 }
 
 /* ============================================
@@ -36,37 +48,43 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.5;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .app-header {
   width: 100%;
   max-width: var(--max-width);
-  padding: 32px 24px 16px;
+  padding: 32px 24px 12px;
   text-align: center;
+  position: relative;
+}
+
+.app-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top center, rgba(226, 43, 43, 0.18), transparent 30%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .app-title {
   margin: 0;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 36px;
+  font-family: var(--display-font);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(226, 43, 43, 0.22);
 }
 
 .app-subtitle {
-  margin: 4px 0 0;
+  margin: 6px auto 0;
   color: var(--text-muted);
   font-size: 14px;
+  max-width: 640px;
 }
 
 .chat {
@@ -77,6 +95,7 @@ body {
   flex-direction: column;
   padding: 0 24px 24px;
   min-height: 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
 }
 
 .chat-messages {
@@ -114,6 +133,7 @@ body {
   background: var(--user-bubble);
   color: white;
   border-bottom-right-radius: 4px;
+  box-shadow: 0 18px 60px rgba(226, 43, 43, 0.08);
 }
 
 .message-ai .message-bubble {
@@ -132,20 +152,20 @@ body {
 .composer {
   display: flex;
   gap: 8px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .composer-input {
   flex: 1;
-  padding: 12px 14px;
+  padding: 14px 16px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   color: var(--text);
   font: inherit;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .composer-input:focus {
@@ -153,15 +173,17 @@ body {
 }
 
 .composer-send {
-  padding: 0 20px;
+  padding: 0 22px;
   background: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius);
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.15s;
 }
 
 .composer-send:hover:not(:disabled) {
